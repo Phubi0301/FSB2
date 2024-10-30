@@ -205,6 +205,17 @@
             color: white; /* Add this line to make the text white */
         }
 
+        .hint-text {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.hint-text i {
+    font-style: italic;
+}
+
         .location-input {
             padding: 8px;
             font-size: 20px;
@@ -254,6 +265,7 @@
     <!-- Page 2 Content -->
     <div class="page2-container" id="page2">
         <div class="location-container">
+            <div class="hint-text">Подсказка : <i>Это пример подсказки</i></div>
             <div class="location-label">Напишите название следующего места (латиницей)</div>
             <input type="text" class="location-input">
             <button class="check-btn">Проверить</button>
