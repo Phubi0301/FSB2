@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Treasure Hunt</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                to bottom,
+                #FFFFFF 0%,
+                #FFFFFF 33.33%,
+                #1C3578 33.33%,
+                #1C3578 66.66%,
+                #E4181C 66.66%,
+                #E4181C 100%
+            );
+            background-attachment: fixed;
+        }
+        
+        .header-text {
+            text-align: center;
+            color: black;
+            margin-bottom: 20px;
+            font-size: 200%;
+            font-family: Arial, sans-serif;
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .header-text h2 {
+            margin: 5px 0 0 0;
+            font-size: 30px;
+        }
+        
+        .emblem-right {
+            position: fixed;
+            top: 40px;
+            right: 20px;
+            width: 150px;
+            height: auto;
+            z-index: 1000;
+            transform: scale(1.5);
+        }
+
+        .emblem-left {
+            position: fixed;
+            top: 40px;
+            left: 20px;
+            width: 150px;
+            height: auto;
+            z-index: 1000;
+            transform: scale(1.5);
+        }
+
+        .chest-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 80px;
+        }
+
+        /* Add the new code-text class here */
+        .code-text {
+            font-size: 24px; /* Adjust this value to make text bigger or smaller */
+            text-align: center;
+            color: black;
+            margin-top: 20px; /* Optional - adds some space above the text */
+        }
+
+
+       .chest {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    background-image: url('vault.png');
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 10px;
+    z-index: 1; /* Lower z-index to ensure it sits "behind" other elements */
+    background-blend-mode: overlay;
+}
+
+        .input-container {
+            position: absolute;
+            top: 48%;
+            left: 52%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            height: auto;
+        }
+
+        .code-input {
+            width: 120px;
+            height: 40px;
+            background-color: white;
+            border: 2px solid #654321;
+            text-align: center;
+            font-size: 36px;
+            letter-spacing: 5px;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            position: absolute; /* Add this */
+            top: 100%; /* Add this - positions it below the container */
+            left: 50%; /* Add this */
+            transform: translateX(-50%); /* Add this */
+            width: 200px;
+            text-align: center;
+            color: #8B0000;
+            background-color: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            font-weight: bold;
+            margin-top: 20px; /* Add this for some spacing */
+        }
+
+        /* Page 2 Styles */
+        .page2-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .download-btn {
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+
+        .check-btn {
+            padding: 8px 16px;
+            font-size: 20px;
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .download-btn:hover, .check-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .location-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 3px;
+        }
+
+        .location-label {
+            font-size: 20px;
+            text-align: center;
+            color: white; /* Add this line to make the text white */
+        }
+
+        .location-input {
+            padding: 8px;
+            font-size: 20px;
+            width: 200px;
+            text-align: center; /* Add this line to center the text */
+        }
+
+        .location-message {
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+            font-size: 20px; /* Add this line to make messages bigger */
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-text">
+        <h1>ФЕДЕРАЛЬНАЯ СЛУЖБА БЕЗОПАСТНОСТИ</h1>
+        <h2>РОССИЙСКОЙ ФЕДЕРАЦИИ</h2>
+    </div>
+    
+    <img src="fsb.png" alt="FSB Emblem" class="emblem-left">
+    <img src="fsb.png" alt="FSB Emblem" class="emblem-right">
+    
+    <!-- Page 1 Content -->
+    <div class="chest-container" id="page1">
+        <div class="chest">
+            <div class="input-container">
+                <input type="text" maxlength="4" class="code-input" placeholder="____">
+                <button class="check-btn">Проверить</button>
+                <div class="error-message">Неверный код. Попробуйте еще раз.</div>
+            </div>
+        </div>
+        <div class="code-text">Напишите код, найденный в квартире</div>
+    </div>
+
+    <!-- Page 2 Content -->
+    <div class="page2-container" id="page2">
+        <button class="download-btn">Скачать Файл</button>
+        <div class="location-container">
+            <div class="location-label">Напишите название следующего места латиницей</div>
+            <input type="text" class="location-input">
+            <button class="check-btn">Проверить</button>
+            <div class="location-message error">Неверный ответ</div>
+            <div class="location-message success">Следующие элементы получите в том месте</div>
+        </div>
+    </div>
+
+    <script>
+        // Page 1 functionality
+        const correctCode = "7621"; // Change this to your desired code
+        const codeInput = document.querySelector('.code-input');
+        const errorMessage = document.querySelector('.error-message');
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const checkBtnPage1 = document.querySelector('#page1 .check-btn');
+        const checkBtnPage2 = document.querySelector('#page2 .check-btn');
+        const unlockSound = new Audio('lock.mp3');
+
+        checkBtnPage1.addEventListener('click', function() {  
+            if (codeInput.value === correctCode) {
+                unlockSound.play();
+                checkBtnPage1.disabled = true; // Disable button while waiting
+                setTimeout(function() {
+                    page1.style.display = 'none';
+                    page2.style.display = 'flex';
+                    checkBtnPage1.disabled = false; // Re-enable button
+                }, 10000); // 10 second delay
+            } else {
+                errorMessage.style.display = 'block';
+                codeInput.value = '';
+            }
+        });
+
+        // Page 2 functionality
+        const downloadBtn = document.querySelector('.download-btn');
+        const locationInput = document.querySelector('.location-input');
+        const errorLocationMessage = document.querySelector('.location-message.error');
+        const successLocationMessage = document.querySelector('.location-message.success');
+
+        downloadBtn.addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.href = 'information.pdf';
+            link.download = 'secret-document.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        checkBtnPage2.addEventListener('click', function() {
+            if(locationInput.value === "Bellagio") {
+                errorLocationMessage.style.display = 'none';
+                successLocationMessage.style.display = 'block';
+            } else {
+                errorLocationMessage.style.display = 'block';
+                successLocationMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
