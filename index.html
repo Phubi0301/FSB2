@@ -265,7 +265,7 @@
     <!-- Page 2 Content -->
     <div class="page2-container" id="page2">
         <div class="location-container">
-            <div class="hint-text">Подсказка : <i>Это пример подсказки</i></div>
+            <div class="hint-text">Подсказка : <i>На земле или на высоте, синего латте только название красивое.</i></div>
             <div class="location-label">Напишите название следующего места (латиницей)</div>
             <input type="text" class="location-input">
             <button class="check-btn">Проверить</button>
@@ -276,7 +276,7 @@
 
     <script>
         // Page 1 functionality
-        const correctCode = "7621"; // Change this to your desired code
+        const correctCode = "6469"; // Change this to your desired code
         const codeInput = document.querySelector('.code-input');
         const errorMessage = document.querySelector('.error-message');
         const page1 = document.getElementById('page1');
@@ -306,7 +306,7 @@
         const successLocationMessage = document.querySelector('.location-message.success');
 
         checkBtnPage2.addEventListener('click', function() {
-            if(locationInput.value === "Bellagio") {
+            if(locationInput.value === "Sheraton") {
                 errorLocationMessage.style.display = 'none';
                 successLocationMessage.style.display = 'block';
             } else {
