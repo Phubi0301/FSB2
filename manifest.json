@@ -1,0 +1,16 @@
+{
+  "name": "FSB Vault",
+  "short_name": "FSB Vault",
+  "description": "FSB Vault Access",
+  "icons": [
+    {
+      "src": "./fsblogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1C3578",
+  "theme_color": "#1C3578"
+}
